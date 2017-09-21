@@ -1,0 +1,25 @@
+version: 0
+
+language: erlang
+
+documentations:
+  - openapi:
+    file: applications/crossbar/priv/api/swagger.json
+    APIs:
+      - "/about"
+      - "/accounts"
+      - "/accounts/{ACCOUNT_ID}"
+
+scans:
+  dependencies:
+    # Will look for outdated or compromised dependencies once a week in branch master.
+    every: week
+    branches:
+      only: master
+
+
+install:
+  - apt install python2
+  - CI=$CI make
+
+start: make start-release
